@@ -39,7 +39,7 @@ FONT-SIZE: 12px; COLOR: #4b4b4b; LINE-HEIGHT: 18px; TEXT-DECORATION: none
 		<tr>
 			<td background="${pageContext.request.contextPath}/images/right.jpg"  width="740" height="412"></td>
 			<td class="login_msg" width="400">
-				<form action="${pageContext.request.contextPath}/pages/frame.jsp" method="post">
+				<form action="${pageContext.request.contextPath}/login.action" method="post">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/images/title.png" width="185" height="26"/>
 					<br/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
