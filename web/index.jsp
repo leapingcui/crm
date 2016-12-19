@@ -8,12 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  <a href="${pageContext.request.contextPath}/AccountServlet">测试转账</a>
-  <a href="${pageContext.request.contextPath}/ServletTest">测试Servlet</a>
-  <jsp:forward page="pages/login.jsp"></jsp:forward>
-  </body>
+<head>
+  <title>$Title$</title>
+</head>
+<body>
+
+<jsp:forward page="pages/login.jsp"></jsp:forward>
+</body>
 </html>
