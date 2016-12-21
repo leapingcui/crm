@@ -90,7 +90,7 @@
 					<td align="center">${staff.staffName}</td>
 					<td align="center">${staff.gender}</td>
 					<td align="center">${staff.onDutyDate}</td>
-					<td align="center"></td>
+					<td align="center">${staff.post.department.depName}</td>
 					<td align="center">${staff.post.postName}</td>
 					<td width="7%" align="center">
 
@@ -102,30 +102,7 @@
 		</c:when>
 	</c:choose>
     
-	  <tr class="tabtd1"> 
-	    <td align="center">管理员</td>
-	    <td align="center"></td>
-	    <td align="center"></td>
-	    <td align="center"></td>
-	    <td align="center"></td>
-	  	<td width="7%" align="center">
-	  		
-	  		<a href="${pageContext.request.contextPath}/pages/staff/editStaff.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>	
-	  	</td>
-	  	
-	  </tr>
-    
-	  <tr class="tabtd2"> 
-	    <td align="center"></td>
-	    <td align="center">女</td>
-	    <td align="center">2013-04-16</td>
-	    <td align="center">咨询部</td>
-	    <td align="center">主管</td>
-	  	<td width="7%" align="center">
-	  		
-	  		<a href="${pageContext.request.contextPath}/pages/staff/editStaff.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>	
-	  	</td>
-	  </tr>
+
 </table>
 
 

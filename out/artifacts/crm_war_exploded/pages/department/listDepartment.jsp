@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,7 +25,7 @@
    
     <td width="57%"align="right">
     	<%--添加部门 --%>
-       <a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp">
+       <a href="${pageContext.request.contextPath}/pages/department/addDepartment.jsp">
        		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
        </a>
       
@@ -44,20 +45,19 @@
     <td width="6%" align="center">部门名称</td>
     <td width="7%" align="center">编辑</td>
   </tr>
-  
-	  <tr class="tabtd1">
-	    <td align="center">java学院 </td>
-	  	<td width="7%" align="center">
-	  		<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	  	</td>
-	  </tr>
-  
-	  <tr class="tabtd2">
-	    <td align="center">咨询部 </td>
-	  	<td width="7%" align="center">
-	  		<a href="${pageContext.request.contextPath}/pages/department/addOrEditDepartment.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	  	</td>
-	  </tr>
+      <c:choose>
+          <c:when test="${not empty pageBeanUtil.pageBean}">
+              <c:forEach var="department" items="${pageBeanUtil.pageBean}">
+                  <tr class="tabtd1">
+                      <td align="center">${department.depName}</td>
+                      <td width="7%" align="center">
+                          <a href="${pageContext.request.contextPath}/editDepartmentBeforeUpdate.action?depId=${department.depId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+                      </td>
+                  </tr>
+              </c:forEach>
+          </c:when>
+      </c:choose>
+
   
 </table>
 
@@ -66,15 +66,26 @@
 <table border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td align="right">
-    	<span>第1/3页</span>
+
+        <span>第${pageBeanUtil.currentPage}/${pageBeanUtil.totalPage}页</span>
+
         <span>
-        	<a href="#">[首页]</a>&nbsp;&nbsp;
-            <a href="#">[上一页]</a>&nbsp;&nbsp;
-            <a href="#">[下一页]</a>&nbsp;&nbsp;
-            <a href="#">[尾页]</a>
+            <c:if test="${pageBeanUtil.currentPage gt 1}">
+                <a href="${pageContext.request.contextPath}/findAllDepartment.action?currentPage=1">[首页]</a>&nbsp;&nbsp;
+                <a href="${pageContext.request.contextPath}/findAllDepartment.action?currentPage=${pageBeanUtil.currentPage - 1}">[上一页]</a>&nbsp;&nbsp;
+            </c:if>
+            <c:forEach var="num" begin="${pageBeanUtil.start}" end="${pageBeanUtil.end}">
+                <a href="${pageContext.request.contextPath}/findAllDepartment.action?currentPage=${num}">${num}</a>&nbsp;&nbsp;
+            </c:forEach>
+        	<c:if test="${pageBeanUtil.currentPage lt pageBeanUtil.totalPage}">
+                <a href="${pageContext.request.contextPath}/findAllDepartment.action?currentPage=${pageBeanUtil.currentPage + 1}">[下一页]</a>&nbsp;&nbsp;
+                <a href="${pageContext.request.contextPath}/findAllDepartment.action?currentPage=${pageBeanUtil.totalPage}">[尾页]</a>&nbsp;&nbsp;
+            </c:if>
+
         </span>
     </td>
   </tr>
 </table>
+
 </body>
 </html>

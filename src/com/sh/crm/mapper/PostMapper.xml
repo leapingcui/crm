@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.crm.mapper.PostMapper">
+    <resultMap id="findAllPostByResultMap" type="com.sh.crm.po.Post">
+        <id column="postId" property="postId"/>
+        <result column="postName" property="postName"/>
+        <!--管理部门表，一个职务对应一个部门：1对1-->
+        <association property="department" javaType="com.sh.crm.po.Department">
+            <id column="depId" property="depId"/>
+            <result column="depName" property="depName"/>
+        </association>
+    </resultMap>
+    <select id="findAllPost" resultMap="findAllPostByResultMap">
+        SELECT p.`postId`, p.`postName`, d.`depId`, d.`depName`
+            FROM crm_post p, crm_department d
+            WHERE p.`depId`=d.`depId`;
+    </select>
+</mapper>
