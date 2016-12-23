@@ -12,8 +12,21 @@ import java.util.List;
 public interface DepartmentService {
 
 
-
+    /**
+     * 分页查找所有的部门
+     * @param currentPage
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
     public PageBeanUtil<Department> findAllDepartment(int currentPage, int pageSize) throws Exception;
+
+    /**
+     * 查找所有的部门信息
+     * @return
+     * @throws Exception
+     */
+    public List<Department> findAllDepartment() throws Exception;
 
     public int findAllCountDepartment() throws Exception;
 

@@ -6,8 +6,14 @@
 
 
 <mapper namespace="com.sh.crm.mapper.DepartmentMapper">
-    <select id="findAllDepartment" parameterType="hashmap" resultType="com.sh.crm.po.Department">
+
+
+    <select id="findAllDepartmentPage" parameterType="hashmap" resultType="com.sh.crm.po.Department">
         SELECT * FROM crm_department LIMIT #{pageIndex},#{pageSize};
+    </select>
+    <!--查找所有的部门-->
+    <select id="findAllDepartment" resultType="com.sh.crm.po.Department">
+        SELECT * FROM crm_department
     </select>
     <select id="findAllCountDepartment" resultType="int">
         SELECT COUNT(*) FROM crm_department;

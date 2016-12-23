@@ -11,11 +11,14 @@ import java.util.List;
 public interface DepartmentMapper {
     /**
      *
-     *
+     *查找所有的部门信息
      * @return
      * @throws Exception
      */
-    public List<Department> findAllDepartment(HashMap<String, Integer> hashMap) throws Exception;
+    public List<Department> findAllDepartmentPage(HashMap<String, Integer> hashMap) throws Exception;
+    //查找所有部门信息
+    public List<Department> findAllDepartment() throws Exception;
+
 
     public int findAllCountDepartment() throws Exception;
 

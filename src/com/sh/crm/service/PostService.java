@@ -10,4 +10,12 @@ import java.util.List;
 public interface PostService {
 
     public List<Post> findAllPost() throws Exception;
+
+    public Post findPostById(String postId) throws Exception;
+
+    public List<Post> findPostByDepId(String depId) throws Exception;
+
+    public void addPost(Post post) throws Exception;
+
+    public void updatePost(Post post) throws Exception;
 }

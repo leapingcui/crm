@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/Calendar.js"></script>
-
+	<%--<script type="text/javascript" src="${pageContext.request.contextPath}/js/ajaxCore.js"></script>--%>
 </head>
 
 <body class="emp_body">
@@ -34,7 +35,7 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/staff/listStaff.jsp" method="post">
+<form action="${pageContext.request.contextPath}/addStaff.action" method="post">
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	 <tr>
 	    <td>登录名：</td>
@@ -53,16 +54,18 @@
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmPost.crmDepartment.depId"onchange="changePost(this)">
+	    	<select name="post.department.depId"onchange="showPost(this)">
 			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
+				<c:forEach var="department" items="${departmentList}">
+					<option value="${department.depId}">${department.depName}</option>
+				</c:forEach>
+
 			</select>
 
 	    </td>
 	    <td width="8%">职务：</td>
 	    <td width="62%">
-	    	<select id="postSelectId" name="crmPost.postId">
+	    	<select id="postSelectId" name="post.postId">
 	    		<option>----请--选--择----</option>
 	    	</select>
 	    </td>
@@ -77,5 +80,58 @@
 	  </tr>
 	</table>
 </form>
+	<script type="text/javascript">
+		function showPost(obj) {
+			/**
+			 * 1、获取选中部门
+			 * 2、发送ajax，通过部门查询职务
+			 * 	2.1 获得引擎
+			 * 	2.2 设置回调函数
+			 * 	2.3 创建连接
+			 * 	2.4 发送请求
+			 *
+			 */
+					//1、获取选中部门
+			var depId = obj.value;
+			//2.1 获得引擎
+			var xmlhttp = null;
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			//2.2重点是回调函数
+			xmlhttp.onreadystatechange = function () {
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					//3、获取响应数据，并将json字符串提取出来
+					var responseDate = xmlhttp.responseText;
+					//alert(responseDate);
+					//3.1 将json字符串转为json对象
+					var jsonDate = eval("(" + responseDate + ")");
+					//3.2 获取页面上post的
+					var postSelectedElement = document.getElementById("postSelectId");
+					//3.3 遍历json对象，将其输出到页面
+					postSelectedElement.innerHTML = "<option>----请--选--择----</option>";
+					for(var i = 0; i < jsonDate.length; i++) {
+						var postObj = jsonDate[i];
+						var postId = postObj.postId;
+						var postName = postObj.postName;
+						postSelectedElement.innerHTML += "<option value='" + postId + "'>" + postName + "</option>";
+					}
+
+
+				}
+			};
+			//2.3 创建连接
+			var url = "${pageContext.request.contextPath}/findPostByIdBeforeAddStaff.action?depId=" + depId;
+			xmlhttp.open("GET", url);
+			//2.4 发送请求
+			xmlhttp.send(null);
+			//alert("test");
+		}
+	</script>
 </body>
 </html>

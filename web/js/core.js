@@ -13,7 +13,7 @@ function changePost(departmentObj,postId){
 	tempPostId = postId;
 	
 	//2 发送ajax 通过部门id 查询对应职务
-	var url = "${pageContext.request.contextPath}/post/postAction_ajaxGetPostion?crmDepartment.depId=" + depId;
+	var url = "${pageContext.request.contextPath}/findPostByIdBeforeAddStaff.action?depId=" + depId;
 	
 	//2.1 创建核心对象
 	var xmlhttp=null;

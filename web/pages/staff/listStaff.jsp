@@ -26,7 +26,7 @@
     	<%--高级查询 --%>
 		<a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
     	<%--员工注入 --%>
-	  	<a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">
+	  	<a href="${pageContext.request.contextPath}/findAllDepBeforeAddStaff.action">
 	  		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
 	  	</a>
       
@@ -94,7 +94,7 @@
 					<td align="center">${staff.post.postName}</td>
 					<td width="7%" align="center">
 
-						<a href="${pageContext.request.contextPath}/pages/staff/editStaff.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
+						<a href="${pageContext.request.contextPath}/editStaffBeforeUpdate.action?staffId=${staff.staffId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
 					</td>
 
 				</tr>

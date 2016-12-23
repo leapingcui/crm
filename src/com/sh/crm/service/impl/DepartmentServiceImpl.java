@@ -26,7 +26,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentMapper.findAllCountDepartment();
     }
 
-
+    @Override
+    public List<Department> findAllDepartment() throws Exception {
+        return departmentMapper.findAllDepartment();
+    }
 
     /**
      * 分页处理的业务逻辑
@@ -44,7 +47,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
         hashMap.put("pageIndex", pageBeanUtil.getPageIndex());
         hashMap.put("pageSize", pageBeanUtil.getPageSize());
-        List<Department> departmentList = departmentMapper.findAllDepartment(hashMap);
+        List<Department> departmentList = departmentMapper.findAllDepartmentPage(hashMap);
         pageBeanUtil.setPageBean(departmentList);
 
         return pageBeanUtil;

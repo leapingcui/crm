@@ -25,7 +25,7 @@
    
     <td width="57%"align="right">
     	<%--添加职务 --%>
-       <a href="${pageContext.request.contextPath}/pages/post/addOrEditPost.jsp">
+       <a href="${pageContext.request.contextPath}/editPostBeforeAdd.action">
        	<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
        </a>
       
@@ -53,7 +53,7 @@
                   <td align="center">${post.department.depName} </td>
                   <td align="center">${post.postName} </td>
                   <td width="7%" align="center">
-                      <a href="${pageContext.request.contextPath}/pages/post/addOrEditPost.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
+                      <a href="${pageContext.request.contextPath}/editPostBeforeUpdate.action?postId=${post.postId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
                   </td>
               </tr>
           </c:forEach>

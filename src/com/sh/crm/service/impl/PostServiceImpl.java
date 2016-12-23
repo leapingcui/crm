@@ -25,4 +25,25 @@ public class PostServiceImpl implements PostService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<Post> findPostByDepId(String depId) throws Exception {
+        return postMapper.findPostByDepId(depId);
+    }
+
+    @Override
+    public Post findPostById(String postId) throws Exception {
+        return postMapper.findPostById(postId);
+    }
+
+    @Override
+    public void addPost(Post post) throws Exception {
+        postMapper.addPost(post);
+    }
+
+    @Override
+    public void updatePost(Post post) throws Exception {
+        postMapper.updatePost(post);
+
+    }
 }
