@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.crm.classes.mapper.CourseTypeMapper">
+    <!--根据条件查询课程-->
+    <select id="findCourseTypeByCondition" parameterType="com.sh.crm.classes.po.CourseTypeQueryVo"
+            resultType="com.sh.crm.classes.po.CourseType">
+
+        SELECT * FROM crm_course_type
+        <where>
+            <if test="courseType != null">
+                <if test="courseType.courseName != null">
+                    AND courseName LIKE '%${courseType.courseName}%'
+                </if>
+                <if test="courseType.remark != null">
+                    AND remark LIKE '%${courseType.remark}%'
+                </if>
+            </if>
+
+            <if test="startCost != null">
+                AND courseCost >= #{startCost}
+            </if>
+            <if test="endCost != null">
+                &amp;&amp; courseCost &lt;= #{endCost}
+            </if>
+            <if test="startHour != null">
+                AND totalHour >= #{startHour}
+            </if>
+            <if test="endHour != null">
+                &amp;&amp; totalHour &lt;= #{endHour}
+            </if>
+        </where>
+
+    </select>
+    <!--添加课程
+            判断处id之外其他字段是否为空-->
+
+    <!--<sql id="courseCost">
+        <set>
+            <if test="courseCost != null">
+                courseCost = #{courseCost}
+            </if>
+        </set>
+    </sql>-->
+    <insert id="addCourseType" parameterType="com.sh.crm.classes.po.CourseType">
+        INSERT INTO crm_course_type 
+          <set>
+              courseTypeId = #{courseTypeId},
+              <if test="courseCost != null">
+                  courseCost = #{courseCost},
+              </if>
+              <if test="totalHour != null">
+                  totalHour = #{totalHour},
+              </if>
+              <if test="courseName != null">
+                  courseName = #{courseName},
+              </if>
+              <if test="remark != null">
+                  remark = #{remark}
+              </if>
+          </set>
+
+    </insert>
+
+</mapper>

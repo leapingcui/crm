@@ -9,6 +9,7 @@
 <body>
 	<font color="#f00">
 		系统繁忙，请稍后重试
+		${message}
 	</font>
 </body>
 </html>

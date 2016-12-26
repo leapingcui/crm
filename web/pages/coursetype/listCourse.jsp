@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,7 +28,7 @@
 			<img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" />
 		</a>      
     	<%--编辑前：添加类别 --%>
-    	<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp">
+    	<a href="${pageContext.request.contextPath}/pages/coursetype/addCourse.jsp">
 	       	<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
     	</a>
     </td>
@@ -76,28 +77,24 @@
 	<td width="11%" align="center">编辑</td>
   </tr>
   <%--数据展示，单行：tabtd1；双行：tabtd2 --%>
-   <tr class="tabtd1">
-	    <td align="center">java基础 </td>
-	    <td align="center"> </td>
-	    <td align="center">1000</td>
-	    <td align="center">2000.0</td>
-	  	<td width="11%" align="center">
-	  		
-	  		<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
-	  	</td>
-	  </tr>
-  
- 
-	  <tr class="tabtd2">
-	    <td align="center">java就业 </td>
-	    <td align="center"> </td>
-	    <td align="center">4000</td>
-	    <td align="center">18000.0</td>
-	  	<td width="11%" align="center">
-	  		
-	  		<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
-	  	</td>
-	  </tr>
+	<c:choose>
+		<c:when test="${not empty courseTypeList}">
+			<c:forEach var="courseType" items="${courseTypeList}">
+				<tr class="tabtd1">
+					<td align="center">${courseType.courseName} </td>
+					<td align="center">${courseType.remark} </td>
+					<td align="center">${courseType.totalHour}</td>
+					<td align="center">${courseType.courseCost}</td>
+					<td width="11%" align="center">
+
+						<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:when>
+	</c:choose>
+
+
 
  
 </table>

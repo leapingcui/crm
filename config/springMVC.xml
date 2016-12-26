@@ -20,6 +20,7 @@
      		-->
 
     <context:component-scan base-package="com.sh.crm.hr.controller"/>
+	<context:component-scan base-package="com.sh.crm.classes.controller"/>
 
 	<!--配置mvc注解驱动的处理器适配器和处理器映射器-->
 	<mvc:annotation-driven></mvc:annotation-driven>
@@ -36,7 +37,8 @@
 			<bean class="com.sh.crm.hr.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-
+	<!--配置异常处理器-->
+	<bean id="handlerExceptionResolver" class="com.sh.crm.classes.exception.CustomExceptionResolver"/>
     
 
 	
