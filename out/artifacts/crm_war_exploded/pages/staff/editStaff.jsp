@@ -35,53 +35,54 @@
 
 <form action="/crm2/staff/staffAction_edit.action" method="post">
 	
-	<input type="hidden" name="staffId" value="2c9091c14c78e58b014c78e7ecd90007"/>
+	<input type="hidden" name="staffId" value="${staff.staffId}"/>
 	
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	 <tr>
 	    <td>登录名：</td>
-	    <td><input type="text" name="loginName" value="tom" /> </td>
+	    <td><input type="text" name="loginName" value="${staff.loginName}" /> </td>
 	    <td>密码：</td>
-	    <td><input type="password" name="loginPwd" value="81dc9bdb52d04dc20036dbd8313ed055" /> </td>
+	    <td><input type="password" name="loginPwd" value="${staff.loginPwd}" /> </td>
 	  </tr>
 	 <tr>
 	    <td>姓名：</td>
-	    <td><input type="text" name="staffName" value="汤姆" /> </td>
+	    <td><input type="text" name="staffName" value="${staff.staffName}" /> </td>
 	    <td>性别：</td>
 	    <td>
-	    	<input type="radio" name="gender" checked="checked" value="男"/>男
+	    	<input type="radio" name="gender" value="男"/>男
 	    	<input type="radio" name="gender" value="女"/>女
 	    </td>
 	  </tr>
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmPost.crmDepartment.depId"  onchange="changePost(this)">
+	    	<select name="post.department.depId"  onchange="changePost(this)">
 			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001" selected="selected">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
+			    <option value="${staff.post.department.depId}" selected="selected">${staff.post.department.depName}</option>
+
 			</select>
 
 	    </td>
 	    <td width="8%">职务：</td>
 	    <td width="62%">
-	    	<select name="crmPost.postId" id="postSelectId">
+	    	<select name="post.postId" id="postSelectId">
 			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e6b34a0003">总监</option>
-			    <option value="2c9091c14c78e58b014c78e6d4510004" selected="selected">讲师</option>
+			    <option value="${staff.post.postId}" selected="selected">${staff.post.postName}</option>
+
 			</select>
 	    </td>
 	  </tr>
 	  <tr>
 	    <td width="10%">入职时间：</td>
 	    <td width="20%">
-	    	<input type="text" name="onDutyDate" value="2014-04-24" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
+	    	<input type="text" name="onDutyDate" value="${staff.onDutyDate}" readonly="readonly" onfocus="c.showMoreDay=true; c.show(this);"/>
 	    </td>
 	    <td width="8%"></td>
 	    <td width="62%"></td>
 	  </tr>
 	</table>
 </form>
+
 
 </body>
 </html>

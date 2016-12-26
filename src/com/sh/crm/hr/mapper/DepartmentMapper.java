@@ -1,6 +1,6 @@
-package com.sh.crm.mapper;
+package com.sh.crm.hr.mapper;
 
-import com.sh.crm.po.Department;
+import com.sh.crm.hr.po.Department;
 
 import java.util.HashMap;
 import java.util.List;

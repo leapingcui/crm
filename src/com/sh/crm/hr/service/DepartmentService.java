@@ -1,9 +1,8 @@
-package com.sh.crm.service;
+package com.sh.crm.hr.service;
 
-import com.sh.crm.po.Department;
-import com.sh.crm.utils.PageBeanUtil;
+import com.sh.crm.hr.po.Department;
+import com.sh.crm.hr.utils.PageBeanUtil;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**

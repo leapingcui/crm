@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sh.crm.mapper.PostMapper">
+<mapper namespace="com.sh.crm.hr.mapper.PostMapper">
     <!--查找所有的职务-->
-    <resultMap id="findPostByResultMap" type="com.sh.crm.po.Post">
+    <resultMap id="findPostByResultMap" type="com.sh.crm.hr.po.Post">
         <id column="postId" property="postId"/>
         <result column="postName" property="postName"/>
         <!--管理部门表，一个职务对应一个部门：1对1-->
-        <association property="department" javaType="com.sh.crm.po.Department">
+        <association property="department" javaType="com.sh.crm.hr.po.Department">
             <id column="depId" property="depId"/>
             <result column="depName" property="depName"/>
         </association>
@@ -28,15 +28,15 @@
 
     </select>
     <!--根据depId查找职务-->
-    <select id="findPostByDepId" parameterType="string" resultType="com.sh.crm.po.Post">
+    <select id="findPostByDepId" parameterType="string" resultType="com.sh.crm.hr.po.Post">
         SELECT * FROM crm_post WHERE depId = #{depId};
     </select>
     <!--添加职务-->
-    <insert id="addPost" parameterType="com.sh.crm.po.Post">
+    <insert id="addPost" parameterType="com.sh.crm.hr.po.Post">
         insert into crm_post values(#{postId}, #{postName}, #{department.depId})
     </insert>
     <!--更新职务-->
-    <update id="updatePost" parameterType="com.sh.crm.po.Post">
+    <update id="updatePost" parameterType="com.sh.crm.hr.po.Post">
         UPDATE crm_post SET postName = #{postName} WHERE postId = #{postId};
     </update>
 </mapper>

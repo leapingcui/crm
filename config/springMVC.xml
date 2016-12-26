@@ -19,7 +19,7 @@
      		1、扫描Controller
      		-->
 
-    <context:component-scan base-package="com.sh.crm.controller"/>
+    <context:component-scan base-package="com.sh.crm.hr.controller"/>
 
 	<!--配置mvc注解驱动的处理器适配器和处理器映射器-->
 	<mvc:annotation-driven></mvc:annotation-driven>
@@ -29,6 +29,13 @@
 		<property name="prefix" value="/pages"></property>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+	<!--配置登录拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.sh.crm.hr.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
     
 

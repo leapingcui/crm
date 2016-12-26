@@ -1,9 +1,9 @@
-package com.sh.crm.controller;
+package com.sh.crm.hr.controller;
 
-import com.sh.crm.po.Department;
-import com.sh.crm.po.Post;
-import com.sh.crm.service.DepartmentService;
-import com.sh.crm.service.PostService;
+import com.sh.crm.hr.po.Department;
+import com.sh.crm.hr.po.Post;
+import com.sh.crm.hr.service.DepartmentService;
+import com.sh.crm.hr.service.PostService;
 
 
 import org.apache.log4j.Logger;

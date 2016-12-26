@@ -44,11 +44,11 @@ FONT-SIZE: 12px; COLOR: #4b4b4b; LINE-HEIGHT: 18px; TEXT-DECORATION: none
 					<br/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<font color="#ff0000">
-						错误提示
+						${message}
 					</font> 
 					<br/>
 					用户名：<input type="text" name="loginName" class="msg" /><br/><br/>
-					密&nbsp;码：<input type="password" class="msg" /><br/><br/>
+					密&nbsp;码：<input type="password" name="loginPwd" class="msg" /><br/><br/>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="submit" class="btn" value="登录 " />
 					
@@ -58,11 +58,11 @@ FONT-SIZE: 12px; COLOR: #4b4b4b; LINE-HEIGHT: 18px; TEXT-DECORATION: none
 	</table>
 	
 	<script type="text/javascript">
-		/* s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
+		//s标签中直接编写JavaScript代码时，不支持el表达式，只能提供单独的函数
 		function registerUrl(){
 			document.location='${pageContext.request.contextPath}/uiAction_staff_register';
 		}
-		*/
+
 	</script>
 </div>
 </BODY></HTML>

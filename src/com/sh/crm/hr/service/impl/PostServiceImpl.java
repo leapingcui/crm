@@ -1,8 +1,8 @@
-package com.sh.crm.service.impl;
+package com.sh.crm.hr.service.impl;
 
-import com.sh.crm.mapper.PostMapper;
-import com.sh.crm.po.Post;
-import com.sh.crm.service.PostService;
+import com.sh.crm.hr.po.Post;
+import com.sh.crm.hr.mapper.PostMapper;
+import com.sh.crm.hr.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

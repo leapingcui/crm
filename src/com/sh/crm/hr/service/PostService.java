@@ -1,6 +1,6 @@
-package com.sh.crm.service;
+package com.sh.crm.hr.service;
 
-import com.sh.crm.po.Post;
+import com.sh.crm.hr.po.Post;
 
 import java.util.List;
 

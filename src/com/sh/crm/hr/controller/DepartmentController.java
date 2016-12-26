@@ -1,8 +1,8 @@
-package com.sh.crm.controller;
+package com.sh.crm.hr.controller;
 
-import com.sh.crm.po.Department;
-import com.sh.crm.service.DepartmentService;
-import com.sh.crm.utils.PageBeanUtil;
+import com.sh.crm.hr.service.DepartmentService;
+import com.sh.crm.hr.po.Department;
+import com.sh.crm.hr.utils.PageBeanUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 /**

@@ -1,6 +1,6 @@
-package com.sh.crm.mapper;
+package com.sh.crm.hr.mapper;
 
-import com.sh.crm.po.Post;
+import com.sh.crm.hr.po.Post;
 
 import java.util.List;
 
