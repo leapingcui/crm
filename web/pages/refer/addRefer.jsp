@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,6 +8,8 @@
 <title>无标题文档</title>
 
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
+
+
 
 </head>
 
@@ -34,8 +37,12 @@
     <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
   </tr>
 </table>
-
-<form action="/crm2/refer/referAction_add.action" method="post">
+ <c:if test="${errorList != null}">
+	 <c:forEach var="error" items="${errorList}">
+		 ${error.defaultMessage}<br/>
+	 </c:forEach>
+ </c:if>
+<form action="${pageContext.request.contextPath}/addRefer.action" method="post">
 	<table width="89%" class="emp_table"    style="" align="left" cellspacing="0">
 	  <tr>
 	    <td width="120px" height="35" align="left" >姓名：</td>
@@ -53,7 +60,7 @@
 	  </tr>
 	  <tr>
 	    <td>QQ：</td>
-	    <td><input type="text" name="qq" value=""/></td>
+	    <td><input type="text" name="QQ" value=""/></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  
@@ -73,13 +80,19 @@
 	  <tr>
 	    <td>意向学科：</td>
 	    <td>
-	    	<select name="crmCourseType.courseTypeId" onchange="">
+	    	<select name="courseType.courseTypeId" onchange="showClasses(this)">
 			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e829b70008">java基础</option>
-			    <option value="2c9091c14c78e58b014c78e867b80009">java就业</option>
+				<c:choose>
+					<c:when test="${courseTypeList != null}">
+						<c:forEach var="courseType" items="${courseTypeList}">
+							<option value="${courseType.courseTypeId}">${courseType.courseName}</option>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+
 			</select>
 	    	&nbsp;&nbsp;&nbsp;意向班级：
-    		<select name="crmClass.classId">
+    		<select id="classId" name="classes.classId">
 				<option value="">----请--选--择----</option>
 			</select>
 	    </td>
@@ -110,6 +123,51 @@
 	  </tr>
 	</table>
 </form>
+ <script type="text/javascript">
+	 function showClasses(obj) {
+		 var courseTypeId = obj.value;
+		 //alert("测试" + courseTypeId);
+		 //2.1 获得引擎
+		 var xmlHttp = null;
+		 if (window.XMLHttpRequest)
+		 {// code for IE7+, Firefox, Chrome, Opera, Safari
+			 xmlHttp=new XMLHttpRequest();
+		 }
+		 else
+		 {// code for IE6, IE5
+			 xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		 }
+		 //2.2重点是回调函数
+		 xmlHttp.onreadystatechange = function () {
+			 if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+				 //3、获取响应数据，并将json字符串提取出来
+				 var responseDate = xmlHttp.responseText;
+				 //alert(responseDate);
+				 //3.1 将json字符串转为json对象
+				 var jsonDate = eval("(" + responseDate + ")");
+				 //3.2 获取页面上post的
+				 var classSelectedElement = document.getElementById("classId");
+				 //3.3 遍历json对象，将其输出到页面
+				 classSelectedElement.innerHTML = "<option>----请--选--择----</option>";
+				 for(var i = 0; i < jsonDate.length; i++) {
+					 var classObj = jsonDate[i];
+					 var classId = classObj.classId;
+					 var className = classObj.className;
+					 classSelectedElement.innerHTML += "<option value='" + classId + "'>" + className + "</option>";
+				 }
 
+
+			 }
+
+		 };
+		 //2.3 创建连接
+		 var url = "${pageContext.request.contextPath}/findClassesByCourseTypeId.action?courseType.courseTypeId=" + courseTypeId;
+		 xmlHttp.open("GET", url);
+		 //2.4 发送请求
+		 xmlHttp.send(null);
+	 }
+
+ </script>
+ <script type="text/javascript" src="${pageContext.request.contextPath}/js/showClassesByAjax.js"/>
 </body>
 </html>
