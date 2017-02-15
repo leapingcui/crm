@@ -33,6 +33,6 @@ public class CourseTypeServiceImpl implements CourseTypeService {
 
     @Override
     public void updateCourseType(CourseType courseType) throws Exception {
-
+        courseTypeMapper.updateCourseType(courseType);
     }
 }

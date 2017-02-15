@@ -1,4 +1,4 @@
-package com.sh.crm.hr.utils;
+package com.sh.crm.utils;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class PageBeanUtil<T> {
     private int end;//结束页
 
     //创建PageUtil对象时必须传递的三个参数，其他两个可以通过计算得到
-    public PageBeanUtil(int currentPage, int pageSize, int totalNum) {
+    public PageBeanUtil(int currentPage, int totalNum) {
         this.currentPage = currentPage;
-        this.pageSize = pageSize;
+        this.pageSize = this.PAGE_SIZE;
         this.totalNum = totalNum;
         this.totalPage = (totalNum + pageSize - 1) / pageSize;
         this.pageIndex = (currentPage - 1) * pageSize;

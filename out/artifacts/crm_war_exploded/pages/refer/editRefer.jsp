@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -31,12 +33,13 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/refer/listRefer.jsp?status=1" method="post">
+<form action="${pageContext.request.contextPath}/updateRefer.action?status=1" method="post">
+	<input type="hidden" name="referId" value="${refer.referId}"/>
 	<table width="89%" class="emp_table"    style="" align="left" cellspacing="0">
 	  <tr>
 	    <td width="120px" height="35" align="left" >姓名：</td>
 	    <td width="300px" align="left">
-	    	<input type="text" name="name" value="张三"/>
+	    	<input type="text" name="name" value="${refer.name}"/>
 	    </td>
 	    <td>
 	    	
@@ -44,12 +47,12 @@
 	  </tr>
 	  <tr>
 	    <td>电话：</td>
-	    <td><input type="text" name="telephone" value="13812341234" /> </td>
+	    <td><input type="text" name="telephone" value="${refer.telephone}" /> </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>QQ：</td>
-	    <td><input type="text" name="qq" value="2342424" /></td>
+	    <td><input type="text" name="QQ" value="${refer.QQ}" /></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  
@@ -58,6 +61,7 @@
 	    <td>
 	    	<select name="intentionLevel" >
 			    <option value="">--请选择意向级别--</option>
+
 			    <option value="A.马上报名" selected="selected">A.马上报名</option>
 			    <option value="B.想报名，考虑中">B.想报名，考虑中</option>
 			    <option value="C.有报名集合，但暂时不能报名">C.有报名集合，但暂时不能报名</option>
@@ -70,18 +74,31 @@
 	  <tr>
 	    <td>意向学科：</td>
 	    <td>
-	    	<select name="crmCourseType.courseTypeId" onchange="">
+	    	<select name="courseType.courseTypeId" onchange="">
 			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e829b70008" selected="selected">java基础</option>
-			    <option value="2c9091c14c78e58b014c78e867b80009">java就业</option>
+				<c:if test="${refer.courseType.courseTypeId != null}">
+					<option value="${refer.courseType.courseTypeId}" selected="selected">${refer.courseType.courseName}</option>
+				</c:if>
+			    <c:choose>
+					<c:when test="${courseTypeList != null}">
+						<c:forEach var="courseType" items="${courseTypeList}">
+							<c:if test="${refer.courseType.courseTypeId != courseType.courseTypeId}">
+								<option value="${courseType.courseTypeId}">${courseType.courseName}</option>
+							</c:if>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+
 			</select>
 
 	    	&nbsp;&nbsp;&nbsp;意向班级：
 	    	
-		    	<select name="crmClass.classId">
+		    	<select name="classes.classId">
 				    <option value="">----请--选--择----</option>
-				    <option value="2c9091c14c78e58b014c78e8cc62000a" selected="selected">1期</option>
-				    <option value="2c9091c14c78e58b014c78e9106e000b">2期</option>
+					<c:if test="${refer.classes.classId != null}">
+						<option value="${refer.classes.classId }" selected="selected">${refer.classes.className }</option>
+					</c:if>
+
 				</select>
 
 	    	
@@ -107,7 +124,7 @@
 	  <tr>
 	    <td align="left">备注：</td>
 	    <td align="left">
-	    	<textarea name="remark" cols="60" rows="5" ></textarea>
+	    	<textarea name="remark" cols="60" rows="5" >${refer.remark}</textarea>
 	    </td>
 	    <td>&nbsp;</td>
 	  </tr>

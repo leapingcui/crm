@@ -47,7 +47,7 @@
 	  <tr>
 	    <td width="120px" height="35" align="left" >姓名：</td>
 	    <td width="300px" align="left">
-	    	<input type="text" name="name" value=""/>
+	    	<input type="text" name="name" value="${refer.name}"/>
 	    </td>
 	    <td>
 	    	
@@ -55,12 +55,12 @@
 	  </tr>
 	  <tr>
 	    <td>电话：</td>
-	    <td><input type="text" name="telephone" value="" /> </td>
+	    <td><input type="text" name="telephone" value="${refer.telephone}" /> </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>QQ：</td>
-	    <td><input type="text" name="QQ" value=""/></td>
+	    <td><input type="text" name="QQ" value="${refer.QQ}"/></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  
@@ -114,7 +114,7 @@
 	  <tr>
 	    <td align="left">备注：</td>
 	    <td align="left">
-	    	<textarea name="remark" cols="60" rows="5"></textarea>
+	    	<textarea name="remark" cols="60" rows="5">${refer.mark}</textarea>
 	    </td>
 	    <td>&nbsp;</td>
 	  </tr>

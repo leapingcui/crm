@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.crm.refer.mapper.ReferMapper">
+    <resultMap id="findReferByResultMap" type="com.sh.crm.refer.po.Refer">
+        <id column="referId" property="referId"/>
+        <result column="name" property="name"/>
+        <result column="telephone" property="telephone"/>
+        <result column="QQ" property="QQ"/>
+        <result column="createDate" property="createDate"/>
+        <result column="intentionLevel" property="intentionLevel"/>
+        <result column="source" property="source"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <!--关联咨询员工-->
+        <association property="staff" javaType="com.sh.crm.hr.po.Staff">
+            <id column="staffId" property="staffId"/>
+            <result column="staffName" property="staffName"/>
+        </association>
+        <!--关联咨询的课程-->
+        <association property="courseType" javaType="com.sh.crm.classes.po.CourseType">
+            <id column="courseTypeId" property="courseTypeId"/>
+            <result column="courseName" property="courseName"/>
+        </association>
+        <association property="classes" javaType="com.sh.crm.classes.po.Classes">
+            <id column="classId" property="classId"/>
+            <result column="className" property="className"/>
+        </association>
+        
+    </resultMap>
+    <!--根据条件查找咨询学生-->
+    <select id="findReferByCondition" parameterType="com.sh.crm.refer.po.Refer" resultMap="findReferByResultMap">
+        SELECT cr.*, ct.`courseName`, cc.`className`, cs.`staffName`
+            FROM crm_refer cr
+            LEFT JOIN crm_course_type ct ON cr.`courseTypeId` = ct.`courseTypeId`
+            LEFT JOIN crm_class cc ON cr.`classId` = cc.`classId`
+            LEFT JOIN crm_staff cs ON cr.`staffId` = cs.`staffId`
+
+
+            <where>
+
+
+                <if test="referId != null and referId != ''">
+                    cr.`referId` = #{referId}
+                </if>
+                <if test="name != null and name != ''">
+                    OR cr.`name` LIKE '%${name}%'
+                </if>
+                <if test="QQ != null and QQ != ''">
+                    OR cr.`QQ` = #{QQ}
+                </if>
+                <if test="telephone != null and telephone != ''">
+                    OR cr.`telephone` = #{telephone}
+                </if>
+            </where>
+
+    </select>
+    <!--添加咨询学生-->
+    <insert id="addRefer" parameterType="com.sh.crm.refer.po.Refer">
+        INSERT INTO crm_refer
+            <set>
+                referId = #{referId},
+                <if test="name != null and name != ''">
+                    name = #{name},
+                </if>
+                <if test="QQ != null and QQ != ''">
+                    QQ = #{QQ},
+                </if>
+                <if test="telephone != null and telephone != ''">
+                    telephone = #{telephone},
+                </if>
+                <if test="createDate != null and createDate != ''">
+                    createDate = #{createDate},
+                </if>
+                <if test="intentionLevel != null and intentionLevel != ''">
+                    intentionLevel = #{intentionLevel},
+                </if>
+                <if test="source != null and source != ''">
+                    source = #{source},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+
+                <if test="classes != null and classes != ''">
+                    <if test="classes.classId != null and classes.classId != ''">
+                        classId = #{classes.classId},
+                    </if>
+
+                </if>
+                <if test="courseType != null and courseType != ''">
+                    <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                        courseTypeId = #{courseType.courseTypeId},
+                    </if>
+
+                </if>
+                <if test="staff != null and staff != ''">
+                    <if test="staff.staffId != null and staff.staffId  != ''">
+                        staffId = #{staff.staffId},
+                    </if>
+
+                </if>
+            </set>
+
+
+    </insert>
+    <update id="updateRefer" parameterType="com.sh.crm.refer.po.Refer">
+        UPDATE crm_refer
+        <set>
+
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="QQ != null and QQ != ''">
+                QQ = #{QQ},
+            </if>
+            <if test="telephone != null and telephone != ''">
+                telephone = #{telephone},
+            </if>
+            <if test="createDate != null and createDate != ''">
+                createDate = #{createDate},
+            </if>
+            <if test="intentionLevel != null and intentionLevel != ''">
+                intentionLevel = #{intentionLevel},
+            </if>
+            <if test="source != null and source != ''">
+                source = #{source},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+
+            <if test="classes != null and classes != ''">
+                <if test="classes.classId != null and classes.classId != ''">
+                    classId = #{classes.classId},
+                </if>
+
+            </if>
+            <if test="courseType != null and courseType != ''">
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    courseTypeId = #{courseType.courseTypeId},
+                </if>
+
+            </if>
+            <if test="staff != null and staff != ''">
+                <if test="staff.staffId != null and staff.staffId  != ''">
+                    staffId = #{staff.staffId},
+                </if>
+
+            </if>
+        </set>
+        <where>
+            referId = #{referId}
+        </where>
+    </update>
+    <!--删除咨询学生-->
+    <delete id="deleteRefer" parameterType="string">
+        DELETE FROM crm_refer WHERE referId = #{referId};
+
+    </delete>
+
+</mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,7 +29,7 @@
    
     <td width="63%"align="right">
     	<%--添加咨询 --%>
-    	<a class="butbg" href="${pageContext.request.contextPath}/pages/refer/addRefer.jsp">
+    	<a class="butbg" href="${pageContext.request.contextPath}/editBeforeAddRefer.action">
 	        <img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
     	</a>
     </td>
@@ -37,13 +38,14 @@
 </table>
 
 <!-- 查询条件：失去焦点马上查询 -->
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/findReferByCondition.action" method="post">
 	<table width="88%" border="0" style="margin: 20px;" >
 	  <tr>
 	    <td width="80px">查询条件：</td>
 	    <td width="300px">
 	    	<input type="text" name="condition" size="20" onblur="" />
 	    	（姓名|电话|QQ）
+            <input type="submit" value="查询"/>
 	    </td>
 	    <td ></td>
 	  </tr>
@@ -71,75 +73,50 @@
 	<td width="8%" align="center">跟踪</td>
 	<td width="8%" align="center">录入学籍</td>
   </tr>
-  <tr class="tabtd1">
-	    <td align="center">张三</td>
-	    <td align="center">13812341234</td>
-	    <td align="center">2342424</td>
-	    <td align="center">
-	    	java基础/
-	    	1期
-	    </td>
-	    <td align="center">
-	    	资讯中
-	    </td>
-	    <td align="center">管理员</td>
-	    
-	    <!-- 查看 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/pages/refer/showRefer.jsp"><img src="${pageContext.request.contextPath}/images/button/view.gif" class="img"/></a>
-		</td>
-		
-		
-		<!-- 编辑 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/pages/refer/editRefer.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		
-		<!-- 添加跟踪 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/pages/follow/addOrEditFollow.jsp"><img src="${pageContext.request.contextPath}/images/button/new.gif" class="img"/></a>
-		</td>
-		
-		<!-- 入学 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/pages/refer/addStudent.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		
-	</tr>
-  <tr class="tabtd2">
-	    <td align="center">张三</td>
-	    <td align="center">13812341234</td>
-	    <td align="center">2342424</td>
-	    <td align="center">
-	    	java基础/
-	    	1期
-	    </td>
-	    <td align="center">
-	    	资讯中
-	    </td>
-	    <td align="center">管理员</td>
-	    
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/refer/referAction_findById.action?referId=2c9091c14c79506c014c7981cf370000"><img src="${pageContext.request.contextPath}/images/button/view.gif" class="img"/></a>
-		</td>
-		
-		
-		<!-- 编辑 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/refer/referAction_preEdit.action?referId=2c9091c14c79506c014c7981cf370000"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		
-		<!-- 添加跟踪 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/follow/followAction_preAddOrEdit.action?crmRefer.referId=2c9091c14c79506c014c7981cf370000"><img src="${pageContext.request.contextPath}/images/button/new.gif" class="img"/></a>
-		</td>
-		
-		<!-- 入学 -->
-		<td width="8%" align="center">
-			<a href="${pageContext.request.contextPath}/refer/referAction_preAddStudent.action?referId=2c9091c14c79506c014c7981cf370000"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		
-	</tr>
+	<c:choose>
+		<c:when test="${referList != null}">
+			<c:forEach var="refer" items="${referList}">
+				<tr class="tabtd1">
+					<td align="center">${refer.name}</td>
+					<td align="center">${refer.telephone}</td>
+					<td align="center">${refer.QQ}</td>
+					<td align="center">
+						${refer.courseType.courseName}/
+						${refer.classes.className}
+					</td>
+					<td align="center">
+						${refer.status}
+					</td>
+					<td align="center">${refer.staff.staffName}</td>
+
+					<!-- 查看 -->
+					<td width="8%" align="center">
+						<a href="${pageContext.request.contextPath}/queryRefer.action?referId=${refer.referId}"><img src="${pageContext.request.contextPath}/images/button/view.gif" class="img"/></a>
+					</td>
+
+
+					<!-- 编辑 -->
+					<td width="8%" align="center">
+						<a href="${pageContext.request.contextPath}/editBeforeUpdateRefer.action?referId=${refer.referId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+					</td>
+
+					<!-- 添加跟踪 -->
+					<td width="8%" align="center">
+						<a href="${pageContext.request.contextPath}/pages/follow/addOrEditFollow.jsp"><img src="${pageContext.request.contextPath}/images/button/new.gif" class="img"/></a>
+					</td>
+
+					<!-- 入学 -->
+					<td width="8%" align="center">
+						<a href="${pageContext.request.contextPath}/editBeforeEntryStatus.action?referId=${refer.referId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+					</td>
+
+				</tr>
+			</c:forEach>
+		</c:when>
+		<c:otherwise></c:otherwise>
+	</c:choose>
+
+
 
 </table>
 <table border="0" cellspacing="0" cellpadding="0" align="center">

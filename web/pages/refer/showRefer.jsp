@@ -36,42 +36,42 @@
 <table width="89%" class="emp_table"    style="" align="left" cellspacing="0">
   <tr>
     <td width="120px" height="35" align="left" >姓名：</td>
-    <td width="300px" align="left">张三 </td>
+    <td width="300px" align="left">${refer.name} </td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>电话：</td>
-    <td>13812341234</td>
+    <td>${refer.telephone}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>QQ：</td>
-    <td>2342424</td>
+    <td>${refer.QQ}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>咨询人：</td>
-    <td>管理员</td>
+    <td>${refer.staff.staffName}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>意向级别：</td>
-    <td>A.马上报名</td>
+    <td>${refer.intentionLevel}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>意向学科：</td>
-    <td>java基础 &nbsp;&nbsp;&nbsp;意向班级：1期</td>
+    <td>${refer.courseType.courseName} &nbsp;&nbsp;&nbsp;意向班级：${refer.classes.className}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td height="41" align="left">来源：</td>
-    <td align="left">1.QQ</td>
+    <td align="left">${refer.source}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td align="left">备注：</td>
-    <td align="left"></td>
+    <td align="left">${refer.remark}</td>
     <td>&nbsp;</td>
   </tr>
   <tr>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -32,21 +33,22 @@
   </tr>
 </table>
 
-<form action="/crm2/classesm/classAction_upload.action" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/uploadSchedule.action" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="classId" value="${classes.classId}"/>
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	  <tr>
 	    <td width="120">课程类别：</td>
-	    <td>java基础 </td>
+	    <td>${classes.courseType.courseName} </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>班级：</td>
-	    <td>1期 </td>
+	    <td>${classes.className} </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>上次上传时间：</td>
-	    <td>2015-04-02 </td>
+	    <td><fmt:formatDate value="${classes.uploadTime}" pattern="yyyy-mm-dd HH:mm:ss"/> </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>

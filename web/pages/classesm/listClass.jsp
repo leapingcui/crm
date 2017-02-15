@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,7 +25,7 @@
     <td width="42%"align="center">&nbsp;</td>
     <td width="36%"align="right">
     	<%--添加班级  /html/classesm/addClass.jsp--%>
-    	<a href="${pageContext.request.contextPath}/pages/classesm/addOrEditClass.jsp">
+    	<a href="${pageContext.request.contextPath}/editClassBeforeAdd.action">
     		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" class="img"/>
     	</a>
     	<%--高级查询 
@@ -63,46 +65,44 @@
   </tr>
   </thead>
   <tbody>
-	  <tr class="tabtd2">
-	    <td align="center">1期 </td>
-	    <td align="center">java基础 </td>
-	    <td align="center">2015-03-10</td>
-	    <td align="center">2015-04-30</td>
-	    <td align="center">已结束</td>
-	    <td align="center">1 </td>
-	    <td align="center">2 </td>
-	    <td align="center">0 </td>
-	    <td align="center">
-	    	<a href="${pageContext.request.contextPath}/pages/classesm/addOrEditClass.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	    </td>
-		<td align="center">
-	    	<a href="${pageContext.request.contextPath}/pages/classesm/showClass.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		<td align="center" title="上次上传时间：2015-04-02">   
-			<a href="${pageContext.request.contextPath}/pages/classesm/uploadClass.jsp">上传</a>
-			<a href="${pageContext.request.contextPath}/pages/classesm/downloadClass">下载</a> <br/>
-		</td>
-	  </tr>
-	  <tr class="tabtd1">
-	    <td align="center">2期 </td>
-	    <td align="center">java基础 </td>
-	    <td align="center">2015-04-28</td>
-	    <td align="center">2015-05-27</td>
-	    <td align="center">已开班</td>
-	    <td align="center">0 </td>
-	    <td align="center">0 </td>
-	    <td align="center">0 </td>
-	    <td align="center">
-	    	<a href="${pageContext.request.contextPath}/classesm/classAction_preAddOrEdit.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-	    </td>
-		<td align="center">
-	    	<a href="${pageContext.request.contextPath}/classesm/classAction_findById.action?classId=2c9091c14c78e58b014c78e9106e000b"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
-		</td>
-		<td align="center" title="上次上传时间：">   
-			<a href="${pageContext.request.contextPath}/classesm/classAction_preUpload.action?classId=2c9091c14c78e58b014c78e9106e000b">上传</a>
-			暂无
-		</td>
-	  </tr>
+  		<c:choose>
+			<c:when test="${classesList != null}">
+				<c:forEach var="classes" items="${classesList}">
+					<tr class="tabtd1">
+						<td align="center">${classes.className} </td>
+						<td align="center">${classes.courseType.courseName}</td>
+
+						<td align="center"><fmt:formatDate value="${classes.beginTime}" pattern="yyyy-mm-dd"/></td>
+						<td align="center"><fmt:formatDate value="${classes.endTime}" pattern="yyyy-mm-dd"/></td>
+						<td align="center">${classes.status}</td>
+						<td align="center">${classes.totalCount} </td>
+						<td align="center">${classes.upgradeCount} </td>
+						<td align="center">${classes.changeCount} </td>
+						<td align="center">
+							<a href="${pageContext.request.contextPath}/editClassesBeforeUpdate.action?classId=${classes.classId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+						</td>
+						<td align="center">
+							<a href="${pageContext.request.contextPath}/showClasses.action?classId=${classes.classId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img"/></a>
+						</td>
+						<td align="center" title="上次上传时间：">
+							<a href="${pageContext.request.contextPath}/beforeUpload.action?classId=${classes.classId}">上传</a>
+                            <c:choose>
+                                <c:when test="${classes.uploadFilename != null}">
+                                    <a href="${pageContext.request.contextPath}/downloadSchedule.action?classId=${classes.classId}">下载</a> <br/>
+                                </c:when>
+                                <c:otherwise>
+                                    暂无
+                                </c:otherwise>
+                            </c:choose>
+
+
+						</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
+
+
   
   </tbody>
 </table>
@@ -111,7 +111,7 @@
 <table border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td align="right">
-    	<span>第1/3页</span>
+    	<span>第1/1页</span>
         <span>
         	<a href="#">[首页]</a>&nbsp;&nbsp;
             <a href="#">[上一页]</a>&nbsp;&nbsp;

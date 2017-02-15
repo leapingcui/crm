@@ -39,27 +39,27 @@
 <table width="88%" class="emp_table">
   <tr>
     <td width="80px" align="left">姓名：</td>
-    <td width="200px" align="left">张三</td>
+    <td width="200px" align="left">${student.name}</td>
     <td></td>
   </tr>
   <tr>
     <td width="80px" align="left">状态：</td>
     <td align="left">
-    	新生
+    	${student.status}
     </td>
     <td></td>
   </tr>
   <tr>
     <td align="left">类别 ：</td>
     <td align="left" colspan="3">
-    	java基础 
+    	${student.courseType.courseName}
     </td>
     <td></td>
   </tr>
   <tr>
     <td align="left">班级：</td>
     <td align="left" colspan="3">
-    	1期 
+    	${student.classes.className}
     </td>
   </tr>
 </table>

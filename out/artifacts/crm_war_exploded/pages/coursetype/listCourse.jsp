@@ -39,23 +39,23 @@
 
 <%--条件查询 start --%>
 
-<form action="${pageContext.request.contextPath}/coursetype/courseTypeAction_findAll.action" method="post">
+<form action="${pageContext.request.contextPath}/findCourseTypeByCondition.action" method="post">
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	  <tr>
 	    <td width="10%">课程类别：</td>
-	    <td><input type="text" name="courseName" size="30" value="" /></td>
+	    <td><input type="text" name="courseType.courseName" size="30" value="" /></td>
 	  </tr>
 	  <tr>
 	    <td >课程简介：</td>
-	    <td > <input type="text" name="remark" size="30" value="" /></td>
+	    <td > <input type="text" name="courseType.remark" size="30" value="" /></td>
 	  </tr>
 	  <tr>  
 	    <td >总学时：</td>
-	    <td ><input type="text" name="totalStart" size="12" value="" />  至  <input type="text" name="totalEnd" size="12" value="" /></td>
+	    <td ><input type="text" name="startHour" size="12" value="" />  至  <input type="text" name="endHour" size="12" value="" /></td>
 	  </tr>
 	  <tr>
 	    <td>课程费用：</td>
-	    <td ><input type="text" name="lessonCostStart" size="12" value="" /> 至 <input type="text" name="lessonCostEnd" size="12" value="" /></td>
+	    <td ><input type="text" name="startCost" size="12" value="" /> 至 <input type="text" name="endCost" size="12" value="" /></td>
 	  </tr>
 	</table>
 </form>
@@ -87,7 +87,7 @@
 					<td align="center">${courseType.courseCost}</td>
 					<td width="11%" align="center">
 
-						<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
+						<a href="${pageContext.request.contextPath}/editCourseTypeBeforeUpdate.action?courseType.courseTypeId=${courseType.courseTypeId}"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
 					</td>
 				</tr>
 			</c:forEach>

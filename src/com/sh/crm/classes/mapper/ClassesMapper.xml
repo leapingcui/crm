@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.crm.classes.mapper.ClassesMapper">
+    <!--根据条件查询班级-->
+    <resultMap id="findClassesByResultMap" type="classes">
+        <id column="classId" property="classId"/>
+        <result column="className" property="className"/>
+        <result column="beginTime" property="beginTime"/>
+        <result column="endTime" property="endTime"/>
+        <result column="status" property="status"/>
+        <result column="totalCount" property="totalCount"/>
+        <result column="upgradeCount" property="upgradeCount"/>
+        <result column="changeCount" property="changeCount"/>
+        <result column="runoffCount" property="runoffCount"/>
+        <result column="remark" property="remark"/>
+        <result column="uploadTime" property="uploadTime"/>
+        <result column="uploadPath" property="uploadPath"/>
+        <result column="uploadFilename" property="uploadFilename"/>
+        <!--班级和课程的关联关系，一个班级对应一门课程-->
+        <association property="courseType" javaType="CourseType">
+            <id column="courseTypeId" property="courseTypeId"/>
+            <result column="courseCost" property="courseCost"/>
+            <result column="totalHour" property="totalHour"/>
+            <result column="courseName" property="courseName"/>
+            <result column="remark" property="remark"/>
+        </association>
+
+
+    </resultMap>
+    <select id="findClassesByCondition" parameterType="com.sh.crm.classes.po.Classes" resultMap="findClassesByResultMap">
+        SELECT * FROM
+          crm_class c LEFT JOIN crm_course_type ct ON
+
+          c.`courseTypeId` = ct.`courseTypeId`
+
+        <where>
+            <if test="classId != null and classId != ''">
+                classId = #{classId}
+            </if>
+            <if test="courseType != null and courseType != ''">
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    and c.courseTypeId = #{courseType.courseTypeId}
+                </if>
+            </if>
+
+
+
+        </where>
+
+    </select>
+    <!--更新班级-->
+    <update id="updateClasses" parameterType="classes">
+        UPDATE crm_class
+
+        <set>
+            <if test="courseType != null and courseType != ''">
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    courseTypeId = #{courseType.courseTypeId},
+                </if>
+            </if>
+
+            <if test="className != null and className != ''">
+                className = #{className},
+            </if>
+            <if test="beginTime != null">
+                beginTime = #{beginTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="totalCount != null">
+                totalCount = #{totalCount},
+            </if>
+            <if test="upgradeCount != null">
+                upgradeCount = #{upgradeCount},
+            </if>
+            <if test="changeCount != null">
+                changeCount = #{changeCount},
+            </if>
+            <if test="runoffCount != null">
+                runoffCount = #{runoffCount},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="uploadTime != null">
+                uploadTime = #{uploadTime},
+            </if>
+            <if test="uploadPath != null and uploadPath != ''">
+                uploadPath = #{uploadPath},
+            </if>
+            <if test="uploadFilename != null and uploadFilename != ''">
+                uploadFilename = #{uploadFilename}
+            </if>
+
+        </set>
+        <where>
+            classId = #{classId}
+        </where>
+    </update>
+    <!--添加班级-->
+        <insert id="addClasses" parameterType="classes">
+            INSERT INTO crm_class
+            <set>
+                classId = #{classId},
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    courseTypeId = #{courseType.courseTypeId},
+                </if>
+                <if test="className != null and className != ''">
+                    className = #{className},
+                </if>
+                <if test="beginTime != null">
+                    beginTime = #{beginTime},
+                </if>
+                <if test="endTime != null">
+                    endTime = #{endTime},
+                </if>
+                <if test="status != null and status != ''">
+                    status = #{status},
+                </if>
+                <if test="totalCount != null">
+                    totalCount = #{totalCount},
+                </if>
+                <if test="upgradeCount != null">
+                    upgradeCount = #{upgradeCount},
+                </if>
+                <if test="changeCount != null">
+                    changeCount = #{changeCount},
+                </if>
+                <if test="runoffCount != null">
+                    runoffCount = #{runoffCount},
+                </if>
+                <if test="remark != null and remark != ''">
+                    remark = #{remark},
+                </if>
+                <if test="uploadTime != null">
+                    uploadTime = #{uploadTime},
+                </if>
+                <if test="uploadPath != null and uploadPath != ''">
+                    uploadPath = #{uploadPath},
+                </if>
+                <if test="uploadFilename != null and uploadFilename != ''">
+                    uploadFilename = #{uploadFilename}
+                </if>
+
+            </set>
+        </insert>
+</mapper>

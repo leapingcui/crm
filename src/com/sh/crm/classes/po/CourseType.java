@@ -1,5 +1,8 @@
 package com.sh.crm.classes.po;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +22,11 @@ public class CourseType {
      );
      */
     private String courseTypeId;
+    @NotNull(message = "{courseType.courseCost.isNull}")
     private double courseCost;
+    @NotNull(message = "{courseType.costHour.isNull}")
     private int totalHour;
+    @NotEmpty(message = "{courseType.courseName.isNull}")
     private String courseName;
     private String remark;
     private Set<Classes> classesSet = new HashSet<Classes>();

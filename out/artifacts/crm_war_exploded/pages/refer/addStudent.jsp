@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -31,12 +32,18 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/student/addOrEditStudent.jsp" method="post">
+ <c:if test="${errors != null}">
+	 <c:forEach var="error" items="${errors}">
+		 ${error.defaultMessage}
+	 </c:forEach>
+ </c:if>
+<form action="${pageContext.request.contextPath}/entryStatus.action" method="post">
+	<input type="hidden" name="refer.referId" value="${refer.referId}"/>
 	<table width="89%" class="emp_table" style="" align="left" cellspacing="0">
 	  <tr>
 	    <td width="120px" height="35" align="left" >姓名：</td>
 	    <td width="300px" align="left">
-	    	<input type="text" name="name" value="张三" />
+	    	<input type="text" name="name" value="${refer.name}${student.name}" />
 	    </td>
 	    <td>
 	    	
@@ -44,17 +51,17 @@
 	  </tr>
 	  <tr>
 	    <td>电话：</td>
-	    <td><input type="text" name="telephone" value="13812341234" /> </td>
+	    <td><input type="text" name="telephone" value="${refer.telephone}${student.telephone}" /> </td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>QQ：</td>
-	    <td><input type="text" name="qq" value="2342424" /></td>
+	    <td><input type="text" name="QQ" value="${refer.QQ}${student.QQ}" /></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	  <tr>
 	    <td>身份证：</td>
-	    <td><input type="text" name="identity" value="" /></td>
+	    <td><input type="text" name="identity" value="${student.identity}" /></td>
 	    <td>&nbsp;</td>
 	  </tr>
 	</table>

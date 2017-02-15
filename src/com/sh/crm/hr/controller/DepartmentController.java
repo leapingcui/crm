@@ -2,7 +2,7 @@ package com.sh.crm.hr.controller;
 
 import com.sh.crm.hr.service.DepartmentService;
 import com.sh.crm.hr.po.Department;
-import com.sh.crm.hr.utils.PageBeanUtil;
+import com.sh.crm.utils.PageBeanUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class DepartmentController {
 
         ModelAndView modelAndView = new ModelAndView();
         try {
-            PageBeanUtil<Department> pageBeanUtil = departmentService.findAllDepartment(currentPage, PageBeanUtil.PAGE_SIZE);
+            PageBeanUtil<Department> pageBeanUtil = departmentService.findAllDepartment(currentPage);
             modelAndView.addObject("pageBeanUtil", pageBeanUtil);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package com.sh.crm.hr.service;
 
 import com.sh.crm.hr.po.Department;
-import com.sh.crm.hr.utils.PageBeanUtil;
+import com.sh.crm.utils.PageBeanUtil;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface DepartmentService {
      * @return
      * @throws Exception
      */
-    public PageBeanUtil<Department> findAllDepartment(int currentPage, int pageSize) throws Exception;
+    public PageBeanUtil<Department> findAllDepartment(int currentPage) throws Exception;
 
     /**
      * 查找所有的部门信息

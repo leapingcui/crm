@@ -22,7 +22,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
             customException = new CustomException("未知错误，请和管理员联系");
         }
         modelAndView.addObject("message", e.getMessage());
-        modelAndView.setViewName("error");
+        modelAndView.setViewName("/error");
         return modelAndView;
     }
 }

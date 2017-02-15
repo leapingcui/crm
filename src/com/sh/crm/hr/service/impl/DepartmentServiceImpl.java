@@ -3,7 +3,7 @@ package com.sh.crm.hr.service.impl;
 import com.sh.crm.hr.mapper.DepartmentMapper;
 import com.sh.crm.hr.po.Department;
 import com.sh.crm.hr.service.DepartmentService;
-import com.sh.crm.hr.utils.PageBeanUtil;
+import com.sh.crm.utils.PageBeanUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,11 +38,11 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @throws Exception
      */
     @Override
-    public PageBeanUtil<Department> findAllDepartment(int currentPage, int pageSize) throws Exception {
+    public PageBeanUtil<Department> findAllDepartment(int currentPage) throws Exception {
         //查询所有部门的条数
         int totalNum = departmentMapper.findAllCountDepartment();
 
-        PageBeanUtil<Department> pageBeanUtil = new PageBeanUtil<>(currentPage, pageSize, totalNum);
+        PageBeanUtil<Department> pageBeanUtil = new PageBeanUtil<>(currentPage, totalNum);
         //封装查询条件到hashMap，查找所有的部门
         HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
         hashMap.put("pageIndex", pageBeanUtil.getPageIndex());

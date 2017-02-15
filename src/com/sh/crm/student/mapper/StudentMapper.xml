@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sh.crm.student.mapper.StudentMapper">
+    <resultMap id="findStudentByResultMap" type="com.sh.crm.student.po.Student">
+        <id column="studentId" property="studentId"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="admissionDate" property="admissionDate"/>
+        <result column="QQ" property="QQ"/>
+        <result column="telephone" property="telephone"/>
+        <result column="mustTuition" property="mustTuition"/>
+        <result column="actualTuition" property="actualTuition"/>
+        <result column="status" property="status"/>
+        <!--关联班级表-->
+        <association property="classes" javaType="com.sh.crm.classes.po.Classes">
+            <id column="classId" property="classId"/>
+            <result column="className" property="className"/>
+        </association>
+        <!--关联课程表-->
+        <association property="courseType" javaType="com.sh.crm.classes.po.CourseType">
+            <id column="courseTypeId" property="courseTypeId"/>
+            <result column="courseName" property="courseName"/>
+        </association>
+
+    </resultMap>
+    <!--条件查询学生并分页显示-->
+    <select id="findStudentByCondition" parameterType="com.sh.crm.student.po.StudentVO" resultMap="findStudentByResultMap">
+        SELECT stu.`studentId`, stu.`name`, stu.`gender`, stu.`admissionDate`,
+               stu.`QQ`, stu.`telephone`, stu.`mustTuition`, stu.`actualTuition`,
+               stu.`status`, cla.`classId`, cla.`className`, cty.`courseTypeId`, cty.`courseName`
+         FROM crm_student stu LEFT JOIN crm_class cla ON stu.`classId` = cla.`classId`
+                              LEFT JOIN crm_course_type cty ON stu.`courseTypeId` = cty.`courseTypeId`
+         <where>
+             <if test="student != null">
+                 <if test="student.name != null and student.name != ''">
+                     stu.`name` LIKE '%${student.name}%'
+                 </if>
+                 <if test="student.telephone != null and student.telephone != ''">
+                     OR stu.`telephone` = #{student.telephone}
+                 </if>
+                 <if test="student.QQ != null and student.QQ != ''">
+                     OR stu.`QQ` = #{student.QQ}
+                 </if>
+                 <if test="student.gender != null and student.gender != ''">
+                     OR stu.`gender` = #{student.gender}
+                 </if>
+                 <if test="student.courseType != null and student.courseType != ''">
+                     <if test="student.courseType.courseTypeId != null and student.courseType.courseTypeId != ''">
+                         AND stu.`courseTypeId` = #{student.courseType.courseTypeId}
+                     </if>
+                 </if>
+                 <if test="student.classes != null and student.classes != ''">
+                     <if test="student.classes.classId != null and student.classes.classId != ''">
+                         AND stu.`classId` = #{student.classes.classId}
+                     </if>
+                 </if>
+
+                 <if test="student.studentId != null and student.studentId != ''">
+                     AND stu.`studentId` = #{student.studentId}
+                 </if>
+             </if>
+
+         </where>
+          LIMIT #{pageIndex}, #{pageSize};
+    </select>
+    <select id="findStudentCountByCondition" parameterType="com.sh.crm.student.po.StudentVO" resultType="int">
+        SELECT COUNT(*) FROM crm_student stu
+        <where>
+            <if test="student != null">
+                <if test="student.name != null and student.name != ''">
+                    stu.`name` LIKE '%${student.name}%'
+                </if>
+                <if test="student.telephone != null and student.telephone != ''">
+                    OR stu.`telephone` = #{student.telephone}
+                </if>
+                <if test="student.QQ != null and student.QQ != ''">
+                    OR stu.`QQ` = #{student.QQ}
+                </if>
+                <if test="student.gender != null and student.gender != ''">
+                    OR stu.`gender` = #{student.gender}
+                </if>
+            </if>
+
+        </where>
+    </select>
+    <insert id="addStudent" parameterType="com.sh.crm.student.po.StudentVO">
+        INSERT  INTO crm_student
+        <set>
+            studentId = #{studentId},
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="QQ != null and QQ != ''">
+                QQ = #{QQ},
+            </if>
+            <if test="telephone != null and telephone != ''">
+                telephone = #{telephone},
+            </if>
+            <if test="identity != null and identity != ''">
+                identity = #{identity},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="mustTuition != null and mustTuition != ''">
+                mustTuition = #{mustTuition},
+            </if>
+            <if test="actualTuition != null and actualTuition != ''">
+                actualTuition = #{actualTuition},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test="education != null and education != ''">
+                education = #{education},
+            </if>
+            <if test="professional != null and professional != ''">
+                professional = #{professional},
+            </if>
+
+
+            <if test="identityAddress != null and identityAddress != ''">
+                identityAddress = #{identityAddress},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="homeTelephone != null and homeTelephone != ''">
+                homeTelephone = #{homeTelephone},
+            </if>
+            <if test="homeContact != null and homeContact != ''">
+                homeContact = #{homeContact},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+
+            <if test="classes != null and classes != ''">
+                <if test="classes.classId != null and classes.classId != ''">
+                    classId = #{classes.classId},
+                </if>
+
+            </if>
+            <if test="courseType != null and courseType != ''">
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    courseTypeId = #{courseType.courseTypeId},
+                </if>
+
+            </if>
+            <if test="refer != null and refer != ''">
+                <if test="refer.referId != null and refer.referId  != ''">
+                    referId = #{refer.referId},
+                </if>
+
+            </if>
+            <if test="admissionDate != null and admissionDate != ''">
+                admissionDate = #{admissionDate}
+            </if>
+        </set>
+    </insert>
+    <!--更新学生-->
+    <update id="updateStudent" parameterType="com.sh.crm.student.po.Student">
+        UPDATE  crm_student
+        <set>
+
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="QQ != null and QQ != ''">
+                QQ = #{QQ},
+            </if>
+            <if test="telephone != null and telephone != ''">
+                telephone = #{telephone},
+            </if>
+            <if test="identity != null and identity != ''">
+                identity = #{identity},
+            </if>
+            <if test="gender != null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="mustTuition != null and mustTuition != ''">
+                mustTuition = #{mustTuition},
+            </if>
+            <if test="actualTuition != null and actualTuition != ''">
+                actualTuition = #{actualTuition},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test="education != null and education != ''">
+                education = #{education},
+            </if>
+            <if test="professional != null and professional != ''">
+                professional = #{professional},
+            </if>
+
+
+            <if test="identityAddress != null and identityAddress != ''">
+                identityAddress = #{identityAddress},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="homeTelephone != null and homeTelephone != ''">
+                homeTelephone = #{homeTelephone},
+            </if>
+            <if test="homeContact != null and homeContact != ''">
+                homeContact = #{homeContact},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+
+            <if test="classes != null and classes != ''">
+                <if test="classes.classId != null and classes.classId != ''">
+                    classId = #{classes.classId},
+                </if>
+
+            </if>
+            <if test="courseType != null and courseType != ''">
+                <if test="courseType.courseTypeId != null and courseType.courseTypeId != ''">
+                    courseTypeId = #{courseType.courseTypeId},
+                </if>
+
+            </if>
+            <if test="refer != null and refer != ''">
+                <if test="refer.referId != null and refer.referId  != ''">
+                    referId = #{refer.referId},
+                </if>
+
+            </if>
+            <if test="admissionDate != null and admissionDate != ''">
+                admissionDate = #{admissionDate}
+            </if>
+        </set>
+        <where>
+            studentId = #{studentId}
+        </where>
+    </update>
+</mapper>

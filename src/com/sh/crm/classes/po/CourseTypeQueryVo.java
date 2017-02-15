@@ -6,10 +6,10 @@ package com.sh.crm.classes.po;
 public class CourseTypeQueryVo {
 
     private CourseType courseType;
-    private int startHour; //起始查询学时
-    private int endHour; //终止查询学时
-    private int startCost; //起始查询课程费用
-    private int endCost; //终止查询课程费用
+    private int startHour = 0; //起始查询学时
+    private int endHour = 0; //终止查询学时
+    private double startCost = 0; //起始查询课程费用
+    private double endCost = 0; //终止查询课程费用
 
     public CourseType getCourseType() {
         return courseType;
@@ -35,19 +35,19 @@ public class CourseTypeQueryVo {
         this.endHour = endHour;
     }
 
-    public int getStartCost() {
+    public double getStartCost() {
         return startCost;
     }
 
-    public void setStartCost(int startCost) {
+    public void setStartCost(double startCost) {
         this.startCost = startCost;
     }
 
-    public int getEndCost() {
+    public double getEndCost() {
         return endCost;
     }
 
-    public void setEndCost(int endCost) {
+    public void setEndCost(double endCost) {
         this.endCost = endCost;
     }
 
